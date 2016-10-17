@@ -1,0 +1,27 @@
+{
+  "name": "mvc-project",
+  "version": "1.0.0",
+  "description": "A simple checkers game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justin-roche/mvc-project.git"
+  },
+  "scripts": {
+    "start": "nodemon --debug server/server.js"
+  },
+  "author": "Justin Roche <jproche5@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/justin-roche/mvc-project/issues"
+  },
+  "homepage": "https://github.com/justin-roche/mvc-project#readme",
+  "devDependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.4"
+  }
+}
