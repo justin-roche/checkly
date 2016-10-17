@@ -5,15 +5,14 @@ var BoardModel = Backbone.Model.extend({
       this.set('validMoves',app.getValidMoves(this.get('pieces')));
     },
 
-    renderNewBoard: function(board){
-      this.set('pieces', board);
-      this.set('validMoves',app.getValidMoves(board));
-      this.set('selectedPiece',null)
+    renderNewBoard: function(pieces){
+      this.set('pieces', pieces);
+      
     },
 
 
     tryMove: function(){
-      var board = this.get('pieces'); //a 2d array
+      var pieces = this.get('pieces'); //a 2d array
       var validMoves = this.get('validMoves');
       var selected = this.get('selectedPiece');
       var dest = this.get('dest');
@@ -26,7 +25,13 @@ var BoardModel = Backbone.Model.extend({
       });
 
       if(singles.length>0){
-        app.movePiece()
+        app.movePiece(selected, dest,pieces);
+        this.set('pieces',pieces);
+        this.set('validMoves',app.getValidMoves(pieces));
+        this.set('selectedPiece',null)
+        this.trigger('change:pieces');
+        //not autotriggered b/c reference is the same
+
       }
       //if valid moves at x,y includes x', y'
           //make change to board

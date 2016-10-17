@@ -116,10 +116,56 @@ var d3renders = (function(){
              //.attr("height", fieldSize + "px")
     };
 
-    obj.updatePieces = function(board){
+    obj.updatePieces = function(pieces){
 
+        var fieldSize = 100;
+
+        //iterate through the 2d array of pieces
+        var data =[];
+        for(var i = 0; i < 8; i++) {
+            for(var ii = 0; ii<8; ii++){
+                if(pieces[i][ii]!=' '){
+                    data.push({
+                        symbol: pieces[i][ii],
+                        location: {x: ii, y: i},
+                    });
+                }
+            }
+        };
+        
+        var circles = d3.select('svg')
+        .selectAll("circle")
+        .data(data)
+        //.enter()
+        //.append('circle');
+
+         circles
+             .style("fill", function(d){
+                return d.symbol === 'x'? 'black': 'red'
+             })
+             .attr("cx", function (d) {
+                 return (d.location.x*100) + 50;
+             })
+             .attr("cy", function (d) {
+                 return (d.location.y*100) + 50;
+             })
+             .attr('r',function(d){
+                return 30;
+             })
+             .attr('width', function(){return fieldSize + 'px'})
+             .attr('height', function(){return fieldSize + 'px'})
+
+             .attr("class", "piece")
+             .on('click',function(d){
+                if(d.symbol === 'x'){
+                    view.handlePieceClick(d);
+                } else {
+                    view.handleEnemyClick(d);
+                }
+                
+             })
       
-    }
+    };
 
     return obj;
 

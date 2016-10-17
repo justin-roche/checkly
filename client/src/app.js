@@ -12,7 +12,7 @@ app.init = function(){
 
 app.getValidMoves = function(pieces){
 
-  //iterate through each x piece on the board and get the first valid move for each, including 1 step and 2 step moves. If two step moves exist, do not look for any more 1 step moves. For kings include backward movement. 
+  //iterate through each x piece on the board and get the first valid move for each, including 1 step and 2 step moves. If two step moves exist, do not look for any more 1 step moves. For kings include backward movement. We look at all the moves initially because if jumps are possible other moves are dissallwoed
 
   var moves = {};
 
@@ -31,6 +31,13 @@ app.getValidMoves = function(pieces){
         }
         if(inBounds(x+1,y-1) && unnocupied(x+1, y-1)){
           pieceMoves.singles.push({x: x+1, y: y-1})
+        }
+        //back and left
+        if(isKing(x,y) && inBounds(x-1,y+1) && unnocupied(x-1, y+1)){
+          pieceMoves.singles.push({x: x-1, y: y+1})
+        }
+        if(isKing(x,y) && inBounds(x+1,y+1) && unnocupied(x+1, y+1)){
+          pieceMoves.singles.push({x: x+1, y: y+1})
         }
       }
     }
@@ -54,7 +61,21 @@ app.getValidMoves = function(pieces){
     }
   }
 
+  function isKing(x, y){
+    if(pieces[y][x] === 'X'){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 };
+
+app.movePiece = function(selected,dest,board){
+  var v = board[selected.y][selected.x];
+  board[selected.y][selected.x] = ' ';
+  board[dest.y][dest.x] = v; 
+}
 
 
 
@@ -71,7 +92,7 @@ app.initialBoard = function(){
     'o o o o '.split(''),
     ' o o o o'.split(''),
     '        '.split(''),
-    '        '.split(''),
+    '   o    '.split(''),
     'x x x x '.split(''),
     ' x x x x'.split(''),
     'x x x x '.split(''),

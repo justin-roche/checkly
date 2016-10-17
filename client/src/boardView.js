@@ -10,7 +10,7 @@ var BoardView = Backbone.View.extend({
   },
 
   render: function(){
-    d3renders.updateBoard(this.model.get('board'));
+    d3renders.updatePieces(this.model.get('pieces'));
   },
 
   handleCellClick: function(cellLoc){
