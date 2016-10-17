@@ -1,8 +1,13 @@
-var d3renders = {
+var d3renders = (function(){
 
-   initialBoard: function(){
-
+    var view = null;
+    var obj = {};
+   
+    obj.initialBoard = function(_view){
         
+        view = _view; 
+        //assign the view for this module, necessary for triggering events on it
+
         var boardDimension = 8;
         var fieldSize = 100;
         var boardSizeX = 1000;
@@ -52,10 +57,13 @@ var d3renders = {
                      return "beige";
                  else
                      return "tan";
-             });
+             })
+             .on('click',function(d){
+                view.handleCellClick(d);
+             })
     },
 
-    initialPieces: function(pieces){
+    obj.initialPieces = function(pieces){
         
         var fieldSize = 100;
 
@@ -95,17 +103,24 @@ var d3renders = {
              .attr('height', function(){return fieldSize + 'px'})
 
              .attr("class", "piece")
-             .on('click',function(){
-                console.log('a piece was clicked!');
+             .on('click',function(d){
+                if(d.symbol === 'x'){
+                    view.handlePieceClick(d);
+                } else {
+                    view.handleEnemyClick(d);
+                }
+                
              })
 
              //.attr("width", fieldSize + "px")
              //.attr("height", fieldSize + "px")
-    },    
+    };
 
-    updatePieces: function(board){
+    obj.updatePieces = function(board){
 
       
     }
 
-};
+    return obj;
+
+})();
