@@ -12,14 +12,20 @@
     <script src="bower_components/underscore/underscore.js" charset="utf-8"></script>
     <script src="bower_components/backbone/backbone.js" charset="utf-8"></script>
 
-   <!--  <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.5.0/socket.io.js'>
-    </script> -->
+   <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.5.0/socket.io.js'>
+    </script> 
 
 </head>
 
 </html>
     <div id="board"></div>
-    <div id="login"></div>
+    <div id="login">
+        <form action="#" id="send" onsubmit="app.model.login($('#username').val())">
+            <input type="text" name="username" id="username"/>
+            <input type="submit" name="submit" class="submit"/>
+        </form><!-- END SOLUTION -->
+
+    </div>
    
 
     <script src='src/boardView.js '></script>

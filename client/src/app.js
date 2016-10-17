@@ -6,7 +6,7 @@ app.init = function(){
   var boardModel = new BoardModel();
   var boardView = new BoardView({model: boardModel});
   var enemyBoardModel = new EnemyBoardModel();
-  var appModel = new AppModel({boardModel: boardModel, enemyBoardModel: enemyBoardModel});
+  app.model = new AppModel({boardModel: boardModel, enemyBoardModel: enemyBoardModel});
 
 }
 
