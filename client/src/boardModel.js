@@ -10,6 +10,14 @@ var BoardModel = Backbone.Model.extend({
       
     },
 
+    reset: function(pieces){
+      this.set('pieces',pieces);
+      this.set('validMoves',app.getValidMoves(pieces));
+      this.set('selectedPiece',null)
+      this.trigger('change:pieces');
+      this.trigger('enemyTurn');
+    },
+
 
     tryMove: function(){
       var pieces = this.get('pieces'); //a 2d array
@@ -19,26 +27,31 @@ var BoardModel = Backbone.Model.extend({
 
       var movingPiece = validMoves[String(selected.x).concat(String(selected.y))];
 
-      //is it a single move that is valid? 
-      var singles = movingPiece.singles.filter(function(moveDest){
+      var jumps = movingPiece.jumps.filter(function(moveDest){
         return moveDest.x === dest.x && moveDest.y === dest.y;
       });
 
-      if(singles.length>0){
+      //check for jumps first
+      if(jumps.length>0){
         app.movePiece(selected, dest,pieces);
-        this.set('pieces',pieces);
-        this.set('validMoves',app.getValidMoves(pieces));
-        this.set('selectedPiece',null)
-        this.trigger('change:pieces');
-        //not autotriggered b/c reference is the same
+        app.removePiece(selected,dest,pieces);
+        this.reset(pieces);
+      } 
 
+      if(validMoves.jumpExists === false){
+        var singles = movingPiece.singles.filter(function(moveDest){
+          return moveDest.x === dest.x && moveDest.y === dest.y;
+        });
+
+        if(singles.length>0){
+          app.movePiece(selected, dest,pieces);
+          this.reset(pieces);
+          //not autotriggered b/c reference is the same
+        }
+        
       }
-      //if valid moves at x,y includes x', y'
-          //make change to board
-          //getNewBoard; 
-      //if a move has been made and there are no more jumps
 
-      this.trigger('enemyTurn');
+      
     }
 
 });

@@ -88,7 +88,7 @@ var d3renders = (function(){
 
          circles
              .style("fill", function(d){
-                return d.symbol === 'x'? 'black': 'red'
+                return d.symbol === 'x' || d.symbol === 'X'? 'black': 'red'
              })
              .attr("cx", function (d) {
                  return (d.location.x*100) + 50;
@@ -104,7 +104,7 @@ var d3renders = (function(){
 
              .attr("class", "piece")
              .on('click',function(d){
-                if(d.symbol === 'x'){
+                if(d.symbol === 'x' || d.symbol === 'X'){
                     view.handlePieceClick(d);
                 } else {
                     view.handleEnemyClick(d);
@@ -132,7 +132,7 @@ var d3renders = (function(){
                 }
             }
         };
-        
+
         var circles = d3.select('svg')
         .selectAll("circle")
         .data(data)
@@ -141,7 +141,7 @@ var d3renders = (function(){
 
          circles
              .style("fill", function(d){
-                return d.symbol === 'x'? 'black': 'red'
+                return d.symbol === 'x' || d.symbol === 'X'? 'black': 'red'
              })
              .attr("cx", function (d) {
                  return (d.location.x*100) + 50;
@@ -157,7 +157,7 @@ var d3renders = (function(){
 
              .attr("class", "piece")
              .on('click',function(d){
-                if(d.symbol === 'x'){
+                if(d.symbol === 'x' || d.symbol === 'X'){
                     view.handlePieceClick(d);
                 } else {
                     view.handleEnemyClick(d);

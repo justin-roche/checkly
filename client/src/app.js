@@ -15,7 +15,8 @@ app.getValidMoves = function(pieces){
   //iterate through each x piece on the board and get the first valid move for each, including 1 step and 2 step moves. If two step moves exist, do not look for any more 1 step moves. For kings include backward movement. We look at all the moves initially because if jumps are possible other moves are dissallwoed
 
   var moves = {};
-
+  moves.jumpExists = false;
+  
   for(var i = 0; i<8; i++){
     var y = i;
     for(var ii = 0; ii<8; ii++){
@@ -26,18 +27,51 @@ app.getValidMoves = function(pieces){
         moves[locString] = {jumps: [], singles: []};
         var pieceMoves = moves[locString];
         //check 1 step left and up
+
+
+        //FORWARD MOVES
         if(inBounds(x-1,y-1) && unnocupied(x-1, y-1)){
           pieceMoves.singles.push({x: x-1, y: y-1})
         }
         if(inBounds(x+1,y-1) && unnocupied(x+1, y-1)){
           pieceMoves.singles.push({x: x+1, y: y-1})
         }
-        //back and left
+
+        //BACKWARDS MOVES
         if(isKing(x,y) && inBounds(x-1,y+1) && unnocupied(x-1, y+1)){
           pieceMoves.singles.push({x: x-1, y: y+1})
         }
         if(isKing(x,y) && inBounds(x+1,y+1) && unnocupied(x+1, y+1)){
           pieceMoves.singles.push({x: x+1, y: y+1})
+        }
+
+        //JUMPS
+        if(inBounds(x-2,y-2) 
+          && unnocupied(x-2, y-2) 
+          && hasEnemy(x-1, y-1)){
+            pieceMoves.jumps.push({x: x-2, y: y-2});
+            moves.jumpExists = true;
+        }
+        if(inBounds(x+2,y-2) 
+          && unnocupied(x+2, y-2) 
+          && hasEnemy(x+1, y-1)){
+            pieceMoves.jumps.push({x: x+2, y: y-2});
+            moves.jumpExists = true;
+        }
+        //BACKWARD JUMPS
+        if(isKing(x,y) 
+          && inBounds(x-2,y+2) 
+          && unnocupied(x-2, y+2) 
+          && hasEnemy(x-1, y-1)){
+            pieceMoves.jumps.push({x: x-2, y: y-2});
+            moves.jumpExists = true;
+        }
+        if(isKing(x,y) 
+          && inBounds(x+2,y+2) 
+          && unnocupied(x+2, y+2)
+          && hasEnemy(x+1, y+1)){
+          pieceMoves.jumps.push({x: x+2, y: y+2});
+          moves.jumpExists = true;
         }
       }
     }
@@ -69,6 +103,14 @@ app.getValidMoves = function(pieces){
     }
   }
 
+  function hasEnemy(x, y){
+    if(pieces[y][x] === 'o' || pieces[y][x] === 'O' ){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 };
 
 app.movePiece = function(selected,dest,board){
@@ -77,6 +119,31 @@ app.movePiece = function(selected,dest,board){
   board[dest.y][dest.x] = v; 
 }
 
+app.removePiece = function(selected,dest,board){
+  
+
+  if(dest.y < selected.y){
+    //a movement up
+    if(dest.x < dest.y){
+      //a movement left
+      board[selected.y-1][selected.x-1] = " ";
+    } else {
+      //right
+      board[selected.y-1][selected.x+1] = " ";
+    }
+  } else {
+    //a movement backwards
+    if(dest.x < dest.y){
+      //a movement left
+      board[selected.y+1][selected.x-1] = " ";
+    } else {
+      //right
+      board[selected.y+1][selected.x+1] = " ";
+    }
+  }
+
+
+}
 
 
 app.getNewBoard = function(board,move){
@@ -93,7 +160,7 @@ app.initialBoard = function(){
     ' o o o o'.split(''),
     '        '.split(''),
     '   o    '.split(''),
-    'x x x x '.split(''),
+    'x X x x '.split(''),
     ' x x x x'.split(''),
     'x x x x '.split(''),
   ]
