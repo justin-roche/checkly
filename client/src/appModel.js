@@ -6,27 +6,55 @@ var AppModel = Backbone.Model.extend({
       var board = this.get('board');
       var pollingTimer = null;
 
-      self.on('startGame',function(role){
-        if(role === 2){
+      self.on('startPollingForGame',function(){
+        $('#spinner').css('visibility','visible');
+        pollingTimer = setInterval(self.getGame.bind(self),1000);
+      });
+
+      self.on('endPollingForGame',function(data){
+
+        clearInterval(pollingTimer);
+        $('#spinner').css('visibility','hidden');
+        self.trigger('startGame',data);
+      });
+
+      self.on('startGame',function(data){
+        self.set('gameData',data);      
+
+        //initial render of pieces  
+        board.set('pieces',app.initialBoard());
+        board.trigger('initialPieces');
+
+        if(self.get('gameData').player1.username === self.get('username')){
+
+          board.set('canMove','true');
+        } else {
           board.set('canMove',false);
           self.trigger('startPolling');
-        } else {
-          board.set('canMove',true);
         }
-      })
+      });
 
       board.on('enemyTurn', function(){
-        var data = {username: self.get('username'), board: app.reversePieces(board.get('pieces'))};
+        //put the board on the data
+        var data = self.get('gameData');
+        data.username = self.get('username');
+        //reflect the board
+        data.board = app.reversePieces(board.get('pieces'));
         self.sendTurn(data);
+        $('#spinner').css('visibility','visible');
+
       });
 
       self.on('startPolling',function(){
+        $('#spinner').css('visibility','visible');
         pollingTimer = setInterval(self.getTurn.bind(self),1000);
       })
 
-      self.on('endPolling',function(pieces){
+      self.on('endPolling',function(data){
+        $('#spinner').css('visibility','hidden');
+        self.set('gameData',data)
         clearInterval(pollingTimer);
-        self.get('board').reset(pieces);
+        self.get('board').reset(data.board);
         board.set('canMove',true);
       });
 
@@ -60,8 +88,29 @@ var AppModel = Backbone.Model.extend({
           type: 'POST',
           contentType: 'application/json',
           data: JSON.stringify(data),
-          success: function(data) {
-            self.trigger('startGame',data.role);
+          success: function(game) {
+            self.trigger('startPollingForGame');
+          },
+          error: function(error, response) {
+            console.log('error',error);
+          },
+        });
+    
+    },
+
+    getGame: function(){
+     
+      var self = this;
+      $.ajax({
+
+          url: 'http://localhost:3000' + '/game'+'?username='+self.get('username'),
+          type: 'GET',
+          contentType: 'application/json',
+          success: function(game) {
+            if(game.player1 && game.player2){
+              //will not include board
+              self.trigger('endPollingForGame',game);
+            }
           },
           error: function(error, response) {
             console.log('error',error);
@@ -93,7 +142,7 @@ var AppModel = Backbone.Model.extend({
       var self = this;
       $.ajax({
 
-          url: 'http://localhost:3000' + '/turn',
+          url: 'http://localhost:3000' + '/turn'+'?gameid='+self.get('gameData').gameId,
           type: 'GET',
           contentType: 'application/json',
           success: function(data) {
@@ -101,7 +150,7 @@ var AppModel = Backbone.Model.extend({
               console.log('waiting...');
             } else {
               if(data.board){
-                self.trigger('endPolling',data.board);
+                self.trigger('endPolling',data);
               }
             }
               

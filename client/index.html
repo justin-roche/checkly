@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+
     <link rel='stylesheet' type='text/css' href='styles.css'>
+    
 
 <head>
     <meta charset="utf-8">
@@ -12,21 +15,41 @@
     <script src="bower_components/underscore/underscore.js" charset="utf-8"></script>
     <script src="bower_components/backbone/backbone.js" charset="utf-8"></script>
 
-   <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.5.0/socket.io.js'>
-    </script> 
+   <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.5.0/socket.io.js'></script> 
+
+    
 
 </head>
 
 </html>
-    <div id="board"></div>
-    <form id="login">
-        <input id="username" type="text">
-        <input class="submit" type="submit">
-    </form>
-    <button id="getTurn">Get Board</button>
-    <button id="sendTurn">Send Board</button>
-
-
+    
+        
+    </div>
+        <nav class="navbar navbar-light bg-faded" style="border-bottom: 1px solid black; background: beige">
+              <a class="navbar-brand" href="#">Checkly</a>
+              <ul class="nav navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">About</a>
+                </li>
+              </ul>
+              <form class="form-inline pull-xs-right" id="login">
+                <input class="form-control" type="text" id="username" placeholder="">
+                <button class="btn btn-outline-success" type="submit">Login</button>
+              </form>
+    </nav>
+    <div id="spinner">
+        <img src="spiffygif.gif">
+        <p>Waiting...</p>
+    </div>
     <script src='src/boardView.js '></script>
     <script src='src/appModel.js '></script>
     <script src='src/loginView.js'></script>
@@ -37,5 +60,8 @@
     <script src='src/app.js'></script>
     <script type="text/javascript">$(app.init);</script>
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
   </body>
 </html>

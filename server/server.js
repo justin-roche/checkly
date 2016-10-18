@@ -5,30 +5,34 @@ var io = require('socket.io');
 //var http = require('http');
 
 var app = express()
-//var server = http.createServer(app)
-//var socket = io.listen(server);
 
 
 app.use(bodyParser.json());
 
+var games = [];
 
+function availableGame(){
+  console.log('gameslength',games.length);
+  if(games.length > 0){
+    console.log('lastgame',games[games.length-1]);
+    return (games[games.length-1].player2 === null);
+  }
+}
 
-/*var socket = io.listen(server);
-*/
+function joinGame(player){
+  var game = games[games.length-1];
+  game.player2 = player;
+  return game;
+}
 
+var Game = function(player){
+  var game = {};
+  game.player1 = player;
+  game.player2 = null; 
+  game.gameId = games.length; 
+  return game;
+};
 
-/*setTimeout(function(){
-  socket.emit('turn',2000);
-})
-
-socket.on('connection', function (socket) {
-  socket.emit('turn', { hello: 'world' });
-});*/
-
-//app.use(cors());
-//mongoose.connect('mongodb://localhost/shortly');
-var game = {};
-game.board = null;
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -40,28 +44,47 @@ app.use(express.static(__dirname + '/../client'));  //**/*.html
 
 
 app.post('/user',function(req,res,next){
-  var playerRole = 1; 
+  //sign in and assign games
+  var game = null;
 
-  if(!game.player1){game.player1 = req.body;}
-  else {
-    game.player2 = req.body;
-    playerRole = 2; 
+  if(availableGame()){
+    game = joinGame(req.body);
   }
-  console.log(game);
-
-  res.send({role: playerRole});
+  else {
+    games.push(new Game(req.body));
+    game = games[games.length-1];
+  }
+  console.log('games',games);
+  res.send(game);
   
 });
 
-app.post('/turn',function(req,res,next){
-  game = req.body; 
-  console.log('new game',game);
+app.get('/game',function(req,res,next){
+  //polled while waiting for opponent
+  
+  var username = req.query.username;
+  var game = games.filter(function(_game){
+    return (_game.player1 && _game.player2) 
+            && (_game.player1.username === req.query.username || req.query.username === _game.player2.username);
+  })[0];
+  
+  if(game){
+    res.send(game);
+  } else {
+    res.send({match: 'no match yet'});
+  }
+  
+})
 
-  res.send(game);
+app.post('/turn',function(req,res,next){
+  games[req.body.gameId] = req.body; 
+  res.send(games[req.body.gameId]);
 })
 
 app.get('/turn',function(req,res,next){
-  res.send(game);
+  var gameid = req.query.gameid;
+  console.log('gameid requested',gameid)
+  res.send(games[gameid]);
 });
 
 app.listen(3000);

@@ -10,8 +10,8 @@ var d3renders = (function(){
 
         var boardDimension = 8;
         var fieldSize = 100;
-        var boardSizeX = 1000;
-        var boardSizeY = 1000;
+        var boardSizeX = 800;
+        var boardSizeY = 800;
 
         d3.select('body')
             .append('svg')
@@ -138,6 +138,8 @@ var d3renders = (function(){
         .data(data)
         //.enter()
         //.append('circle');
+
+        circles.exit().remove();
 
          circles
              .style("fill", function(d){

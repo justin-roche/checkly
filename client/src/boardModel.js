@@ -1,9 +1,12 @@
 var BoardModel = Backbone.Model.extend({
   
     initialize: function(){
-      this.set('pieces',app.initialBoard());
-      this.set('validMoves',app.getValidMoves(this.get('pieces')));
-      this.set('canMove',true);
+      this.set('pieces',app.blankBoard());
+      this.on('initialPieces',function(){
+        this.set('validMoves',app.getValidMoves(this.get('pieces')));
+      })
+      
+      //this.set('canMove',true);
     },
 
     renderNewBoard: function(pieces){
@@ -12,10 +15,11 @@ var BoardModel = Backbone.Model.extend({
 
     reset: function(pieces){
       pieces = app.getPromotions(pieces);
-      if(app.getWinState === 'WIN'){
+      var winState = app.getWinState(pieces);
+      if(winState === 'WIN'){
         alert('YOU HAVE WON!');
       }
-      if(app.getWinState === 'LOSE'){
+      if(winState === 'LOSE'){
         alert('YOU HAVE LOST!');
       }
       this.set('pieces',pieces);
@@ -39,6 +43,7 @@ var BoardModel = Backbone.Model.extend({
 
         if(currentSingle.length>0){
           app.movePiece(selected, dest,pieces);
+          console.log('moved to',dest);
           this.reset(pieces);
           this.set('canMove',false);
           this.trigger('enemyTurn');
@@ -53,6 +58,7 @@ var BoardModel = Backbone.Model.extend({
 
         if(currentJump.length>0){
           app.movePiece(selected, dest,pieces);
+          console.log('jumped to',dest);
           app.removePiece(selected,dest,pieces);
           this.reset(pieces);
           

@@ -3,6 +3,20 @@ body {
   margin: 0;
   font-family: helvetica;
   position: relative;
-  background: ivory;
+  background: seashell;
+}
+
+svg{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+
+#spinner{
+    display: block;
+    float: right;
+    margin-right: 20px;
+    visibility: hidden;
 }
 

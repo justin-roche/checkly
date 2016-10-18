@@ -66,7 +66,7 @@ app.getValidMoves = function(pieces){
           && inBounds(x-2,y+2) 
           && unnocupied(x-2, y+2) 
           && hasEnemy(x-1, y+1)){
-            pieceMoves.jumps.push({x: x-2, y: y-2});
+            pieceMoves.jumps.push({x: x-2, y: y+2});
             moves.jumpExists = true;
         }
         if(isKing(x,y) 
@@ -231,18 +231,33 @@ app.getPromotions = function(pieces){
   return pieces; 
 }
 
+app.blankBoard = function(){
+  return[''];
+}
+
 app.initialBoard = function(){
 
-  return[
-    ' o o o o'.split(''),
-    'o o o o '.split(''),
-    ' o o o o'.split(''),
+ return[
+    ' o o    '.split(''),
+    ' o x    '.split(''),
+    '        '.split(''),
+    '        '.split(''),
+    '  x  x  '.split(''),
+    'x o o x '.split(''),
+    '  x x x '.split(''),
+    'x x x x '.split(''),
+  ]
+
+  /*return[
+    '        '.split(''),
+    '        '.split(''),
+    '        '.split(''),
     '        '.split(''),
     '   o    '.split(''),
     'x X x x '.split(''),
     ' x x x x'.split(''),
     'x x x x '.split(''),
-  ]
+  ]*/
 
 }
 

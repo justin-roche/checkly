@@ -3,8 +3,11 @@ var BoardView = Backbone.View.extend({
 
   initialize: function(){
     //make the initial render and bind to change events on the model
+    var self =this;
     d3renders.initialBoard(this);
-    d3renders.initialPieces(this.model.get('pieces'));
+    this.model.on('initialPieces',function(){
+      d3renders.initialPieces(self.model.get('pieces'));
+    });
     this.model.on('change:pieces',this.render.bind(this));
       //don't change on irrelevant properties
   },
