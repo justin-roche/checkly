@@ -4,8 +4,7 @@
   "description": "A simple checkers game",
   "main": "index.js",
   "scripts": {
-    "start": "node server/server.js",
-    "postinstall": "client/bower install"
+    "start": "nodemon server/server.js"
   },
   "repository": {
     "type": "git",
@@ -17,15 +16,13 @@
     "url": "https://github.com/justin-roche/mvc-project/issues"
   },
   "homepage": "https://github.com/justin-roche/mvc-project#readme",
-  "devDependencies": {
-    
-  },
+  "devDependencies": {},
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "bower": "^0.6.8",
     "cors": "^2.8.1",
     "express": "^4.14.0",
-    "socket.io": "^1.5.0",
-    "body-parser": "^1.15.2",
     "mongoose": "^4.6.4",
-    "bower": "0.6.x"
+    "socket.io": "^1.5.0"
   }
 }

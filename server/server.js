@@ -86,6 +86,6 @@ app.get('/turn',function(req,res,next){
   res.send(games[gameid]);
 });
 
-app.listen(process.env.PORT || 5000);
+app.listen(process.env.PORT || 8000);
 
 module.exports = app;
