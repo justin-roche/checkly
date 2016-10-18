@@ -87,6 +87,6 @@ app.get('/turn',function(req,res,next){
   res.send(games[gameid]);
 });
 
-app.listen(3000);
+app.listen();
 
 module.exports = app;
