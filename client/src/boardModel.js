@@ -11,9 +11,16 @@ var BoardModel = Backbone.Model.extend({
     },
 
     reset: function(pieces){
+      pieces = app.getPromotions(pieces);
+      if(app.getWinState === 'WIN'){
+        alert('YOU HAVE WON!');
+      }
+      if(app.getWinState === 'LOSE'){
+        alert('YOU HAVE LOST!');
+      }
       this.set('pieces',pieces);
       this.set('validMoves',app.getValidMoves(pieces));
-      this.set('selectedPiece',null)
+      this.set('selectedPiece',null);
       this.trigger('change:pieces');
     },
 

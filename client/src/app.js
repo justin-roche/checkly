@@ -9,6 +9,10 @@ app.init = function(){
 
 }
 
+
+
+//these should be refactored as utils module that never returns anything, or is a pure function, not doing both
+
 app.getValidMoves = function(pieces){
 
   //iterate through each x piece on the board and get the first valid move for each, including 1 step and 2 step moves. If two step moves exist, do not look for any more 1 step moves. For kings include backward movement. We look at all the moves initially because if jumps are possible other moves are dissallwoed
@@ -114,7 +118,7 @@ app.getValidMoves = function(pieces){
 
 
 app.reversePieces = function(pieces){
-
+  //sender reflects board and changes symbols for receiver
   console.log('reversing',pieces);
   for(var i = 0; i<pieces.length; i++){
     pieces[i].reverse();
@@ -175,11 +179,56 @@ app.removePiece = function(selected,dest,board){
 
 }
 
+app.getWinState = function(pieces){
+  var myloss = true;
+  var enemyloss = true;
+
+  for(var i = 0; i<8; i++){
+    for(var ii =0; ii<8; ii++){
+      if(pieces[i][ii] === 'x' || pieces[i][ii] === 'X'){
+        myloss = false;
+      }
+      if(pieces[i][ii] === 'o' || pieces[i][ii] === 'O'){
+        enemyloss = false;
+      }
+    }
+  }
+
+  if (enemyloss){
+    return 'WIN'
+  }
+  if (myloss){
+    return 'LOSE'
+  }
+  return null;
+
+}
+
 
 app.getNewBoard = function(board,move){
 
 
   return [];
+}
+
+app.getPromotions = function(pieces){
+
+  var firstRank = pieces[0];
+  firstRank.forEach(function(symbol, i){
+    if (symbol === 'x'){
+      firstRank[i] = 'X';
+    }
+  });
+
+
+  var lastRank = pieces[7];
+  lastRank.forEach(function(symbol, i){
+    if (symbol === 'o'){
+      lastRank[i] = 'O';
+    }
+  });
+
+  return pieces; 
 }
 
 app.initialBoard = function(){

@@ -143,6 +143,22 @@ var d3renders = (function(){
              .style("fill", function(d){
                 return d.symbol === 'x' || d.symbol === 'X'? 'black': 'red'
              })
+             .style("stroke", function(d){
+                if(d.symbol === 'x'){
+
+                }
+                if(d.symbol === 'X' || d.symbol === 'O'){
+                    return 'yellow';
+                }
+             })
+             .style("stroke-width", function(d){
+                if(d.symbol === 'x'){
+
+                }
+                if(d.symbol === 'X'  || d.symbol === 'O'){
+                    return '3px';
+                }
+             })
              .attr("cx", function (d) {
                  return (d.location.x*100) + 50;
              })
