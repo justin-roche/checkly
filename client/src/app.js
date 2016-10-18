@@ -237,7 +237,7 @@ app.blankBoard = function(){
 
 app.initialBoard = function(){
 
- return[
+ /*return[
     ' o o    '.split(''),
     ' o x    '.split(''),
     '        '.split(''),
@@ -246,18 +246,18 @@ app.initialBoard = function(){
     'x o o x '.split(''),
     '  x x x '.split(''),
     'x x x x '.split(''),
-  ]
+  ]*/
 
-  /*return[
+  return[
+    ' o o o o'.split(''),
+    'o o o o '.split(''),
+    ' o o o o'.split(''),
     '        '.split(''),
     '        '.split(''),
-    '        '.split(''),
-    '        '.split(''),
-    '   o    '.split(''),
-    'x X x x '.split(''),
+    'x x x x '.split(''),
     ' x x x x'.split(''),
     'x x x x '.split(''),
-  ]*/
+  ];
 
 }
 
