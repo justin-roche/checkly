@@ -4,8 +4,7 @@ var bodyParser = require('body-parser');
 var io = require('socket.io');
 //var http = require('http');
 
-var app = express()
-app.set('port', (process.env.PORT || 5000));
+var app = express();
 
 app.use(bodyParser.json());
 
@@ -87,6 +86,6 @@ app.get('/turn',function(req,res,next){
   res.send(games[gameid]);
 });
 
-app.listen();
+app.listen(process.env.PORT || 5000);
 
 module.exports = app;
