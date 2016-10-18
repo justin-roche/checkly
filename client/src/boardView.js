@@ -22,7 +22,10 @@ var BoardView = Backbone.View.extend({
   },
 
   handlePieceClick: function(piece){
-    this.model.set('selectedPiece',{x: piece.location.x, y: piece.location.y});
+    var selectedPiece = {x: piece.location.x, y: piece.location.y};
+    if(this.model.get('canMove')){
+      this.model.set('selectedPiece',selectedPiece);
+    }
   },
 
   handleEnemyClick: function(piece){

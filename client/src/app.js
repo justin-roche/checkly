@@ -2,7 +2,6 @@ var app = {};
 
 app.init = function(){
 
-  
   var boardModel = new BoardModel();
   var boardView = new BoardView({model: boardModel});
   var enemyBoardModel = new EnemyBoardModel();
@@ -62,7 +61,7 @@ app.getValidMoves = function(pieces){
         if(isKing(x,y) 
           && inBounds(x-2,y+2) 
           && unnocupied(x-2, y+2) 
-          && hasEnemy(x-1, y-1)){
+          && hasEnemy(x-1, y+1)){
             pieceMoves.jumps.push({x: x-2, y: y-2});
             moves.jumpExists = true;
         }
@@ -112,6 +111,9 @@ app.getValidMoves = function(pieces){
   }
 
 };
+
+
+
 
 app.movePiece = function(selected,dest,board){
   var v = board[selected.y][selected.x];

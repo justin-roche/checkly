@@ -19,14 +19,13 @@
 
 </html>
     <div id="board"></div>
-    <div id="login">
-        <form action="#" id="send" onsubmit="app.model.login($('#username').val())">
-            <input type="text" name="username" id="username"/>
-            <input type="submit" name="submit" class="submit"/>
-        </form><!-- END SOLUTION -->
+    <form id="login">
+        <input id="username" type="text">
+        <input class="submit" type="submit">
+    </form>
+    <button id="getTurn">Get Board</button>
+    <button id="sendTurn">Send Board</button>
 
-    </div>
-   
 
     <script src='src/boardView.js '></script>
     <script src='src/appModel.js '></script>
