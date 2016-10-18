@@ -84,7 +84,7 @@ var AppModel = Backbone.Model.extend({
       var self = this;
       $.ajax({
 
-          url: 'http://localhost:3000' + '/user',
+          url: 'https://powerful-temple-32184.herokuapp.com' + '/user',
           type: 'POST',
           contentType: 'application/json',
           data: JSON.stringify(data),
@@ -103,7 +103,7 @@ var AppModel = Backbone.Model.extend({
       var self = this;
       $.ajax({
 
-          url: 'http://localhost:3000' + '/game'+'?username='+self.get('username'),
+          url: 'https://powerful-temple-32184.herokuapp.com' + '/game'+'?username='+self.get('username'),
           type: 'GET',
           contentType: 'application/json',
           success: function(game) {
@@ -123,7 +123,7 @@ var AppModel = Backbone.Model.extend({
       var self = this;
       $.ajax({
 
-          url: 'http://localhost:3000' + '/turn',
+          url: 'https://powerful-temple-32184.herokuapp.com' + '/turn',
           type: 'POST',
           contentType: 'application/json',
           data: JSON.stringify(data),
@@ -142,7 +142,7 @@ var AppModel = Backbone.Model.extend({
       var self = this;
       $.ajax({
 
-          url: 'http://localhost:3000' + '/turn'+'?gameid='+self.get('gameData').gameId,
+          url: 'https://powerful-temple-32184.herokuapp.com' + '/turn'+'?gameid='+self.get('gameData').gameId,
           type: 'GET',
           contentType: 'application/json',
           success: function(data) {
