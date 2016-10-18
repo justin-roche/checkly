@@ -6,8 +6,17 @@ var AppModel = Backbone.Model.extend({
       var board = this.get('board');
       var pollingTimer = null;
 
+      self.on('startGame',function(role){
+        if(role === 2){
+          board.set('canMove',false);
+          self.trigger('startPolling');
+        } else {
+          board.set('canMove',true);
+        }
+      })
+
       board.on('enemyTurn', function(){
-        var data = {username: self.get('username'), board: board.get('pieces')};
+        var data = {username: self.get('username'), board: app.reversePieces(board.get('pieces'))};
         self.sendTurn(data);
       });
 
@@ -18,6 +27,7 @@ var AppModel = Backbone.Model.extend({
       self.on('endPolling',function(pieces){
         clearInterval(pollingTimer);
         self.get('board').reset(pieces);
+        board.set('canMove',true);
       });
 
       $('#login').submit(function(e){
@@ -51,8 +61,7 @@ var AppModel = Backbone.Model.extend({
           contentType: 'application/json',
           data: JSON.stringify(data),
           success: function(data) {
-            console.log('posted', data);
-              
+            self.trigger('startGame',data.role);
           },
           error: function(error, response) {
             console.log('error',error);
@@ -91,7 +100,9 @@ var AppModel = Backbone.Model.extend({
             if(data.username === self.get('username')){
               console.log('waiting...');
             } else {
-              self.trigger('endPolling',data.board);
+              if(data.board){
+                self.trigger('endPolling',data.board);
+              }
             }
               
           },

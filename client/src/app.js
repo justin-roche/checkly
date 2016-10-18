@@ -113,7 +113,35 @@ app.getValidMoves = function(pieces){
 };
 
 
+app.reversePieces = function(pieces){
 
+  console.log('reversing',pieces);
+  for(var i = 0; i<pieces.length; i++){
+    pieces[i].reverse();
+  }
+
+  pieces.reverse();
+
+  for(var i = 0; i<pieces.length; i++){
+    for(var ii = 0; ii<pieces[i].length; ii++){
+      if(pieces[i][ii] === 'x'){
+        pieces[i][ii] = 'o';
+      }
+      else if(pieces[i][ii] === 'X'){
+        pieces[i][ii] = 'O';
+      }
+      else if(pieces[i][ii] === 'o'){
+        pieces[i][ii] = 'x';
+      }
+      else if(pieces[i][ii] === 'O'){
+        pieces[i][ii] = 'X';
+      }
+    }
+  }
+  console.log('reversed',pieces);
+  return pieces;
+
+}
 
 app.movePiece = function(selected,dest,board){
   var v = board[selected.y][selected.x];
@@ -126,7 +154,7 @@ app.removePiece = function(selected,dest,board){
 
   if(dest.y < selected.y){
     //a movement up
-    if(dest.x < dest.y){
+    if(dest.x < selected.x){
       //a movement left
       board[selected.y-1][selected.x-1] = " ";
     } else {
@@ -135,7 +163,7 @@ app.removePiece = function(selected,dest,board){
     }
   } else {
     //a movement backwards
-    if(dest.x < dest.y){
+    if(dest.x < selected.x){
       //a movement left
       board[selected.y+1][selected.x-1] = " ";
     } else {

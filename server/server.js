@@ -40,14 +40,16 @@ app.use(express.static(__dirname + '/../client'));  //**/*.html
 
 
 app.post('/user',function(req,res,next){
-  
+  var playerRole = 1; 
+
   if(!game.player1){game.player1 = req.body;}
   else {
     game.player2 = req.body;
+    playerRole = 2; 
   }
   console.log(game);
 
-  res.send({});
+  res.send({role: playerRole});
   
 });
 

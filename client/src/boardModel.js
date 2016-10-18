@@ -8,7 +8,6 @@ var BoardModel = Backbone.Model.extend({
 
     renderNewBoard: function(pieces){
       this.set('pieces', pieces);
-      
     },
 
     reset: function(pieces){
