@@ -170,6 +170,12 @@ io.on('connection', function(client) {
       io.to(target).emit('endgame');
     });
 
+    client.on('lostgame',function(data){
+      var target = matchingService.getOpponentId(id);
+      matchingService.deleteMatchByPlayerId(id);
+      io.to(target).emit('wongame');
+    });
+
 });
 
 server.listen(process.env.PORT || 8000);

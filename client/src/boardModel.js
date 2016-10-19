@@ -16,14 +16,19 @@ var BoardModel = Backbone.Model.extend({
     },
 
     reset: function(pieces){
+      //reset after a move
+
       pieces = app.getPromotions(pieces);
       var winState = app.getWinState(pieces);
       if(winState === 'WIN'){
-        alert('YOU HAVE WON!');
+        /*alert('YOU HAVE WON!');
+        this.trigger('wongame');*/
       }
       if(winState === 'LOSE'){
+        //the loser always emits the final lost state, which confirms the win on the winners side
         alert('YOU HAVE LOST!');
-        this.trigger('endgame');
+        this.setToEmpty();
+        this.trigger('lostgame');
       }
       this.set('pieces',pieces);
       this.set('validMoves',app.getValidMoves(pieces));
