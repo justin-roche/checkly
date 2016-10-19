@@ -5,7 +5,7 @@ var AppModel = Backbone.Model.extend({
       
       var board = params.boardModel; 
 
-      var socket = io.connect('http://localhost:8000');
+      var socket = io.connect('https://powerful-temple-32184.herokuapp.com/');
         var self = this; 
 
       socket.on('connect', function(data) {
