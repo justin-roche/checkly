@@ -242,10 +242,11 @@ app.initialBoard = function(){
     'o o o o '.split(''),
     ' o o o o'.split(''),
     '        '.split(''),
+    '        '.split(''),
     'x x x x '.split(''),
     ' x x x x'.split(''),
     'x x x x '.split(''),
-  ]
+  ];
 
   /*return[
     '        '.split(''),
