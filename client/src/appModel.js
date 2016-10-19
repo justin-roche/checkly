@@ -59,7 +59,7 @@ var AppModel = Backbone.Model.extend({
       function setupGame(role){
         console.log('role is',role);
         $('#spinner').css('visibility','hidden');
-       
+        app.role = role;
         if(role === 1){
           board.set('pieces',app.initialBoard());
           board.set('canMove','true');

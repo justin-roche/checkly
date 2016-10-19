@@ -88,7 +88,12 @@ var d3renders = (function(){
 
          circles
              .style("fill", function(d){
-                return d.symbol === 'x' || d.symbol === 'X'? 'black': 'red'
+                if(app.role === 1){
+                    return d.symbol === 'x' || d.symbol === 'X'? 'black': 'red'
+                } else {
+                    return d.symbol === 'x' || d.symbol === 'X'? 'red': 'black'
+                }
+                
              })
              .attr("cx", function (d) {
                  return (d.location.x*100) + 50;
@@ -149,7 +154,11 @@ var d3renders = (function(){
 
          circles
              .style("fill", function(d){
-                return d.symbol === 'x' || d.symbol === 'X'? 'black': 'red'
+                if(app.role === 1){
+                    return d.symbol === 'x' || d.symbol === 'X'? 'black': 'red'
+                } else {
+                    return d.symbol === 'x' || d.symbol === 'X'? 'red': 'black'
+                }
              })
              .style("stroke", function(d){
                 if(d.symbol === 'x'){
