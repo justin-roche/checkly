@@ -2,29 +2,29 @@
 
 
  
-## Heading ##
+## Checkly: Play checkers now ##
   A Two-player Checkers game
 
-## Sub-Heading ##
+## Who needs it? ##
   People who enjoy checkers will love this product. 
 
-## Summary ##
+## Benefits ##
   This is a two-player checkers game that can be played over the internet. It follows all the rules of checkers. 
 
-## Problem ##
+## The Problem ##
   Many people have problems finding a simple checkers game. 
 
-## Solution ##
+## The Solution ##
   This product solves this problem by providing the simplest possible checkers interface. 
 
-## Quote from You ##
+## Message From Founder ##
   "When you need to kill time, this is the app for you"
 
 ## How to Get Started ##
   Just go to our website. 
 
-## Customer Quote ##
+## Customer Testimonial ##
   "I can't believe how much time I spend playing checkers now!"
 
-## Closing and Call to Action ##
+## Next Step ##
   Go to our website and play today! 
