@@ -13,7 +13,13 @@ var BoardView = Backbone.View.extend({
   },
 
   render: function(){
-    d3renders.updatePieces(this.model.get('pieces'));
+    var pieces = this.model.get('pieces');
+    if(pieces.length === 8){
+      d3renders.updatePieces(this.model.get('pieces'));
+    } else {
+      d3renders.clearBoard();
+    }
+    
   },
 
   handleCellClick: function(cellLoc){

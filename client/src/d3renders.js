@@ -116,7 +116,13 @@ var d3renders = (function(){
              //.attr("height", fieldSize + "px")
     };
 
+    obj.clearBoard = function(){
+        d3.selectAll("circle")
+        .remove();
+    }
+
     obj.updatePieces = function(pieces){
+
 
         var fieldSize = 100;
 

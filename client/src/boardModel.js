@@ -5,12 +5,14 @@ var BoardModel = Backbone.Model.extend({
       this.on('initialPieces',function(){
         this.set('validMoves',app.getValidMoves(this.get('pieces')));
       })
-      
-      //this.set('canMove',true);
     },
 
     renderNewBoard: function(pieces){
       this.set('pieces', pieces);
+    },
+
+    setToEmpty: function(){
+      this.set('pieces',app.blankBoard());
     },
 
     reset: function(pieces){
@@ -21,6 +23,7 @@ var BoardModel = Backbone.Model.extend({
       }
       if(winState === 'LOSE'){
         alert('YOU HAVE LOST!');
+        this.trigger('endgame');
       }
       this.set('pieces',pieces);
       this.set('validMoves',app.getValidMoves(pieces));
