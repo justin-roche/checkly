@@ -249,14 +249,14 @@ app.initialBoard = function(){
   ]*/
 
   return[
-    ' o o o o'.split(''),
-    'o o o o '.split(''),
-    ' o o o o'.split(''),
     '        '.split(''),
+    '    o   '.split(''),
     '        '.split(''),
-    'x x x x '.split(''),
-    ' x x x x'.split(''),
-    'x x x x '.split(''),
+    '  o     '.split(''),
+    ' x   o  '.split(''),
+    '        '.split(''),
+    '       x'.split(''),
+    '    x x '.split(''),
   ];
 
 }
