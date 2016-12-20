@@ -142,7 +142,7 @@ app.reversePieces = function(pieces){
       }
     }
   }
-  console.log('reversed',pieces);
+  //console.log('reversed',pieces);
   return pieces;
 
 }
@@ -237,7 +237,7 @@ app.blankBoard = function(){
 
 app.initialBoard = function(){
 
- /*return[
+ return[
     ' o o o o'.split(''),
     'o o o o '.split(''),
     ' o o o o'.split(''),
@@ -246,18 +246,18 @@ app.initialBoard = function(){
     'x x x x '.split(''),
     ' x x x x'.split(''),
     'x x x x '.split(''),
-  ];*/
-
-  return[
-    '        '.split(''),
-    '    o   '.split(''),
-    '        '.split(''),
-    '  o     '.split(''),
-    ' x   o  '.split(''),
-    '        '.split(''),
-    '       x'.split(''),
-    '    x x '.split(''),
   ];
+
+  // return[
+  //   '        '.split(''),
+  //   '    o   '.split(''),
+  //   '        '.split(''),
+  //   '  o     '.split(''),
+  //   ' x   o  '.split(''),
+  //   '        '.split(''),
+  //   '       x'.split(''),
+  //   '    x x '.split(''),
+  // ];
 
 }
 
