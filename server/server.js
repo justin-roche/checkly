@@ -55,12 +55,10 @@ io.on('connection', function(client) {
 
 
     client.on('login',function(data){
-      console.log('logging in user')
       matchingService.addPlayer(id);
       var match = matchingService.getNewMatch();
       
       if(match){
-        console.log('emitting match to...',match[0],match[1]);
         io.to(match[0]).emit('match',1);
         io.to(match[1]).emit('match',2);
       }
@@ -77,14 +75,11 @@ io.on('connection', function(client) {
 
     client.on('turn',function(data){
       var target = matchingService.getOpponentId(id);
-      console.log('target of turn is',target);
       io.to(target).emit('turn',JSON.stringify(data)); 
     });
 
     client.on('logout',function(data){
-      console.log('logging out',id);
       var target = matchingService.getOpponentId(id);
-      console.log('sending endgame to',target);
       matchingService.deleteMatchByPlayerId(id);
       io.to(target).emit('endgame');
     });

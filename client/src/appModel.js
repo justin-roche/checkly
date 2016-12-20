@@ -5,13 +5,13 @@ var AppModel = Backbone.Model.extend({
       
       var board = params.boardModel; 
 
-      var socket = io.connect('https://powerful-temple-32184.herokuapp.com/');
-      //var socket = io.connect('http://localhost:8000');
+      //var socket = io.connect('https://powerful-temple-32184.herokuapp.com/');
+      var socket = io.connect('http://localhost:8000');
 
       var self = this; 
 
       socket.on('connect', function(data) {
-        //console.log('socket connected');
+
       });
 
       socket.on('match',function(data){
@@ -57,7 +57,6 @@ var AppModel = Backbone.Model.extend({
       }
 
       function setupGame(role){
-        console.log('role is',role);
         $('#spinner').css('visibility','hidden');
         app.role = role;
         if(role === 1){

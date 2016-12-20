@@ -51,7 +51,6 @@ var BoardModel = Backbone.Model.extend({
 
         if(currentSingle.length>0){
           app.movePiece(selected, dest,pieces);
-          console.log('moved to',dest);
           this.reset(pieces);
           this.set('canMove',false);
           this.trigger('enemyTurn');
@@ -66,7 +65,6 @@ var BoardModel = Backbone.Model.extend({
 
         if(currentJump.length>0){
           app.movePiece(selected, dest,pieces);
-          console.log('jumped to',dest);
           app.removePiece(selected,dest,pieces);
           this.reset(pieces);
           

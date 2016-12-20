@@ -23,7 +23,6 @@ var BoardView = Backbone.View.extend({
   },
 
   handleCellClick: function(cellLoc){
-    console.log('cell was clicked');
     if(this.model.get('selectedPiece')){
       this.model.set('dest',cellLoc);
       this.model.tryMove();
@@ -42,6 +41,5 @@ var BoardView = Backbone.View.extend({
 
 
   },
-
 
 });

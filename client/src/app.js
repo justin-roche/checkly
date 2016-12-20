@@ -9,8 +9,6 @@ app.init = function(){
 
 }
 
-
-
 //these should be refactored as utils module that never returns anything, or is a pure function, not doing both
 
 app.getValidMoves = function(pieces){
@@ -119,7 +117,6 @@ app.getValidMoves = function(pieces){
 
 app.reversePieces = function(pieces){
   //sender reflects board and changes symbols for receiver
-  console.log('reversing',pieces);
   for(var i = 0; i<pieces.length; i++){
     pieces[i].reverse();
   }
@@ -142,7 +139,7 @@ app.reversePieces = function(pieces){
       }
     }
   }
-  //console.log('reversed',pieces);
+
   return pieces;
 
 }
